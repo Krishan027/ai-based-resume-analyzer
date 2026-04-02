@@ -1,13 +1,35 @@
+import Navbar from "~/components/Navbar";
 import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
+import { resumes } from "../../constants";
+import ResumeCard from "~/components/ResumeCard";
+import { callbackify } from "util";
+
 
 export function meta({}: Route.MetaArgs) {
   return [
     { title: "Resume Analyzer" },
-    { name: "description", content: "Welcome to Resume Analyzer!" },
+    { name: "description", content: "Feedback For Your Resume!" },
   ];
 }
 
 export default function Home() {
-  return <Welcome />;
+  return <main className="bg-[url('/images/bg-main.svg')] bg-cover">
+    <Navbar />
+    
+    <section className="main-section">
+      <div className="page-heading"> 
+        <h1>Track Your Application & Resume Ratings</h1>
+        <h2>Review your submissions and check your progress</h2>
+      </div>
+    </section>
+
+    {resumes.length > 0 && (
+      <div className="resumes-section">
+        {resumes.map((resume) => (
+          <ResumeCard key={resume.id} resume={resume} />
+        ))}
+      </div>
+    )}
+
+  </main>
 }
