@@ -1,9 +1,32 @@
+import { useEffect, type JSX } from "react";
+import { usePuterStore } from "~/lib/puter";
+import { useLocation, useNavigate} from "react-router";
+
+
 export const meta = () => ([
-    { title: "Login | Auth" },
+    { title: "Resume Analyzer | Auth" },
     { name: "description", content: "Login to your account" },
 ])
 
-const Auth = () => {
+const Auth = (): JSX.Element => {
+    const  {isLoading, auth } = usePuterStore();
+    const location = useLocation();
+    const next = new URLSearchParams(location.search).get("next") ?? "/";
+    const navigate = useNavigate();
+
+    const handleSignIn = async () => {
+        await auth.signIn();
+        if (usePuterStore.getState().auth.isAuthenticated) {
+            navigate(next);
+        }
+    };
+
+    useEffect(() => {
+        if (auth.isAuthenticated) {
+            navigate(next);
+        }
+    }, [auth.isAuthenticated, next, navigate]);
+
     return (
         <main className="bg-[url('/images/bg-main.svg')] bg-cover min-h-screen flex items-center justify-center">
             <div className="gradient-border shadow-lg">
@@ -11,6 +34,25 @@ const Auth = () => {
                     <div className="flex flex-col items-center gap-2 text-center">
                         <h1>Welcome</h1>
                         <h2>Login to your account</h2>
+                    </div>
+                    <div>
+                        {isLoading ? (
+                            <button className="auth-button animate-pulse">
+                                <p>Signing you in</p>
+                            </button>
+                        ) : (
+                            <>
+                                {auth.isAuthenticated ? (
+                                    <button className="auth-button" onClick={auth.signOut}>
+                                        <p>Log Out</p>
+                                    </button>
+                                ) : (
+                                    <button className="auth-button" onClick={handleSignIn}>
+                                        <p>Log in</p>
+                                    </button>
+                                )}
+                            </>
+                        )}
                     </div>
                 </section>
             </div>
