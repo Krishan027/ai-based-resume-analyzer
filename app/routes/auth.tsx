@@ -16,14 +16,15 @@ const Auth = (): JSX.Element => {
 
     const handleSignIn = async () => {
         await auth.signIn();
-        if (usePuterStore.getState().auth.isAuthenticated) {
-            navigate(next);
+        const state = usePuterStore.getState();
+        if (state.auth.isAuthenticated) {
+            navigate(next, { replace: true });
         }
     };
 
     useEffect(() => {
         if (auth.isAuthenticated) {
-            navigate(next);
+            navigate(next, { replace: true });
         }
     }, [auth.isAuthenticated, next, navigate]);
 
