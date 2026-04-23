@@ -15,6 +15,7 @@ interface Resume {
 }
 
 interface Feedback {
+  toneAndStyle: any;
   overallScore: number;
   ATS: {
     score: number;
@@ -23,7 +24,7 @@ interface Feedback {
       tip: string;
     }[];
   };
-  toneAndStyle: {
+  skill: {
     score: number;
     tips: {
       type: "good" | "improve";

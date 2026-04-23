@@ -29,7 +29,7 @@ const Auth = (): JSX.Element => {
     }, [auth.isAuthenticated, next, navigate]);
 
     return (
-        <main className="bg-[url('/images/bg-main.svg')] bg-cover min-h-screen flex items-center justify-center">
+        <main className="bg-[url('/images/bg-main.jpg')] bg-cover min-h-screen flex items-center justify-center">
             <div className="gradient-border shadow-lg">
                 <section className="flex flex-col gap-8 bg-white rounded-2xl p-10">
                     <div className="flex flex-col items-center gap-2 text-center">
@@ -44,11 +44,11 @@ const Auth = (): JSX.Element => {
                         ) : (
                             <>
                                 {auth.isAuthenticated ? (
-                                    <button className="auth-button" onClick={auth.signOut}>
+                                    <button className="auth-button !bg-violet-600 !text-white !font-bold !border-none !shadow-lg !shadow-violet-600/50 hover:!bg-violet-700 hover:!shadow-violet-600/70 hover:-translate-y-0.5 transition-all duration-300" onClick={auth.signOut}>
                                         <p>Log Out</p>
                                     </button>
                                 ) : (
-                                    <button className="auth-button" onClick={handleSignIn}>
+                                    <button className="auth-button !bg-violet-600 !text-white !font-bold !border-none !shadow-lg !shadow-violet-600/50 hover:!bg-violet-700 hover:!shadow-violet-600/70 hover:-translate-y-0.5 transition-all duration-300" onClick={handleSignIn}>
                                         <p>Log in</p>
                                     </button>
                                 )}

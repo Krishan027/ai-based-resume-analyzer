@@ -34,16 +34,16 @@ const Upload = () => {
 
         setStatusText("Saving feedback...");
         const uuid = generateUUID();
-        const data ={
+        const data: any = {
             id: uuid,
             resumePath: uploadedFile.path,
             imagePath: uploadedImage.path,
             companyName,
             jobTitle,
             jobDescription,
-            feedback: '',
+            feedback: null,
         }
-        await kv.set('resume:${uuid}', JSON.stringify(data));
+        await kv.set(`resume:${uuid}`, JSON.stringify(data));
 
         setStatusText("Analyzing...");
         
@@ -79,7 +79,7 @@ const Upload = () => {
     }
 
     return (
-        <main className="bg-[url('/images/bg-main.svg')] bg-cover">
+        <main className="bg-[url('/images/bg-main.jpg')] bg-cover">
             <Navbar />
     
         <section className="main-section">
@@ -92,7 +92,7 @@ const Upload = () => {
                     </>
                 ) : (
                     <>
-                        <h2>Drop your resume for an ATS score and improvement.</h2>
+                        <h2 >Drop your resume for an ATS score and improvement.</h2>
                         <form id="upload-form" onSubmit={handleSubmit} className="flex flex-col gap-4 mt-8">   
                         <div className="form-div">
                             <label htmlFor="company-name"> Company Name</label>
@@ -110,7 +110,7 @@ const Upload = () => {
                             <label htmlFor="uploader"> Upload Resume</label>
                            <FileUploader onFileSelect={handleFileSelect} />
                         </div>
-                        <button className="primary-button" type="submit">
+                        <button className="primary-button !bg-violet-600 !text-white !font-bold !border-none !shadow-lg !shadow-violet-600/50 hover:!bg-violet-700 hover:!shadow-violet-600/70 hover:-translate-y-0.5 transition-all duration-300" type="submit">
                             Analyze Resume</button>
                     </form>
                     </>

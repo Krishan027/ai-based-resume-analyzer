@@ -11,7 +11,7 @@ export const resumes: Resume[] = [
         score: 90,
         tips: [],
       },
-      toneAndStyle: {
+      skill: {
         score: 90,
         tips: [],
       },
@@ -41,7 +41,7 @@ export const resumes: Resume[] = [
         score: 90,
         tips: [],
       },
-      toneAndStyle: {
+      skill: {
         score: 90,
         tips: [],
       },
@@ -71,7 +71,7 @@ export const resumes: Resume[] = [
         score: 90,
         tips: [],
       },
-      toneAndStyle: {
+      skill: {
         score: 90,
         tips: [],
       },
