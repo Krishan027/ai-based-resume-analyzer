@@ -7,6 +7,10 @@ export const resumes: Resume[] = [
     resumePath: "/resumes/resume-1.pdf",
     feedback: {
       overallScore: 85,
+      toneAndStyle: {
+        score: 90,
+        tips: [],
+      },
       ATS: {
         score: 90,
         tips: [],
@@ -37,6 +41,10 @@ export const resumes: Resume[] = [
     resumePath: "/resumes/resume-2.pdf",
     feedback: {
       overallScore: 55,
+      toneAndStyle: {
+        score: 90,
+        tips: [],
+      },
       ATS: {
         score: 90,
         tips: [],
@@ -67,6 +75,10 @@ export const resumes: Resume[] = [
     resumePath: "/resumes/resume-3.pdf",
     feedback: {
       overallScore: 75,
+      toneAndStyle: {
+        score: 90,
+        tips: [],
+      },
       ATS: {
         score: 90,
         tips: [],

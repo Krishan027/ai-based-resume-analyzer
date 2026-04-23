@@ -26,7 +26,10 @@ const Upload = () => {
 
         setStatusText("Generating feedback...");
         const imageFile = await convertPdfToImage(file);
-        if(!imageFile.file) return setStatusText("Failed to process PDF. Please ensure it's a valid PDF file.");
+        if(!imageFile.file) {
+            console.error(imageFile.error);
+            return setStatusText("Failed to process PDF: " + (imageFile.error || "Unknown error"));
+        }
 
         setStatusText("Uploading results...");
         const uploadedImage = await fs.upload([imageFile.file]);
@@ -47,21 +50,27 @@ const Upload = () => {
 
         setStatusText("Analyzing...");
         
-        const feedback = await ai.feedback(
-            uploadedFile.path,
-            prepareInstructions({ jobTitle, jobDescription, AIResponseFormat })
-        )
-        if (!feedback) return setStatusText("Failed to get feedback. Please try again.");
+        try {
+            const feedback = await ai.feedback(
+                uploadedImage.path,
+                prepareInstructions({ jobTitle, jobDescription, AIResponseFormat })
+            )
+            if (!feedback) return setStatusText("Failed to get feedback. Please try again.");
 
-        const feedbackText = typeof feedback.message.content === "string"
-            ? feedback.message.content
-            : feedback.message.content[0]?.text || "";
+            const feedbackText = typeof feedback.message.content === "string"
+                ? feedback.message.content
+                : feedback.message.content[0]?.text || "";
 
-        data.feedback = JSON.parse(feedbackText);
-        await kv.set(`resume:${uuid}`, JSON.stringify(data));
-        setStatusText("Analysis complete!");
-        console.log(data);
-        navigate(`/resume/${uuid}`); // Navigate to the resume page with the generated ID
+            data.feedback = JSON.parse(feedbackText);
+            await kv.set(`resume:${uuid}`, JSON.stringify(data));
+            setStatusText("Analysis complete!");
+            console.log(data);
+            navigate(`/resume/${uuid}`); // Navigate to the resume page with the generated ID
+        } catch (error: any) {
+            console.error("AI Feedback Error:", error);
+            setStatusText(`Failed to get feedback: ${error.message || error}`);
+            setIsProcessing(false);
+        }
     }
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();

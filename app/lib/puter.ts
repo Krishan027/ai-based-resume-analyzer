@@ -350,7 +350,7 @@ export const usePuterStore = create<PuterStore>((set, get) => {
           ],
         },
       ],
-      { model: "claude-opus-20241022" }
+      { model: "gpt-4o" }
     ) as Promise<AIResponse | undefined>;
   };
 
