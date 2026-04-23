@@ -25,6 +25,8 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
+import ProfileMenu from "./components/ProfileMenu";
+
 export function Layout({ children }: { children: React.ReactNode }) {
   const {init } = usePuterStore();
 
@@ -41,9 +43,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-
          <script src="https://js.puter.com/v2/"></script>
-          {children}
+         {children}
         <ScrollRestoration />
         <Scripts />
       </body>
